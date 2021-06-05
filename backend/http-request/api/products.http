@@ -1,0 +1,81 @@
+GET http://localhost:8080/api/v1/products/60b8afffc1b7a94326d133a5
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/v1/products
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/api/v1/products/60ba22bc0f836dd0d7d1d3cd
+Accept: application/json
+Content-Type: application/json
+
+{
+   "name": "Kopi Hitam",
+   "stock": 1,
+   "minimum_stock": 1,
+   "selling_price": 20000,
+   "purchase_price": 10000,
+   "barcode": "",
+   "sku": "",
+   "category": ""
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/products/60b8d40e273827df5e48b6e0
+Accept: application/json
+
+###
+
+PATCH http://localhost:8080/api/v1/products/60ba22bc0f836dd0d7d1d3cd/image
+Accept: application/json
+Content-Type: multipart/form-data; boundary=appBoundary
+
+--appBoundary
+Content-Disposition: form-data; name="image"; filename="kopi.jpg"
+
+< ./files/kopi.jpg
+
+###
+
+POST http://localhost:8080/api/v1/products
+Accept: application/json
+Content-Type: multipart/form-data; boundary=appBoundary
+
+--appBoundary
+Content-Disposition: form-data; name="name"
+Content-Type: text/plain
+
+Teh Hitam
+
+--appBoundary
+Content-Disposition: form-data; name="stock"
+Content-Type: text/plain
+
+7
+
+--appBoundary
+Content-Disposition: form-data; name="minimum_stock"
+Content-Type: text/plain
+
+2
+
+--appBoundary
+Content-Disposition: form-data; name="purchase_price"
+Content-Type: text/plain
+
+2000
+
+--appBoundary
+Content-Disposition: form-data; name="selling_price"
+Content-Type: text/plain
+
+3000
+
+--appBoundary
+Content-Disposition: form-data; name="image"; filename="teh.jpg"
+
+< ./files/teh.jpg
