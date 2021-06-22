@@ -1,0 +1,10 @@
+.floating-cart {
+    position: fixed;
+    z-index: 5;
+    bottom: 0;
+    width: calc(100% - 256px);
+    padding: 18px 0;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}

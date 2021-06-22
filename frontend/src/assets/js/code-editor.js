@@ -1,0 +1,1 @@
+var editor=CodeMirror.fromTextArea(codemirror,{lineNumbers:true,mode:'xml'});editor.setSize('100%',700);

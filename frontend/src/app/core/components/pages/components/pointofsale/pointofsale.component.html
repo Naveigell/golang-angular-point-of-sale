@@ -1,0 +1,59 @@
+<div>
+    <div class="row">
+        <div class="col-lg-7" [ngClass]="{'col-lg-12': !(orders.length > 0), 'col-lg-8': orders.length > 0}">
+            <div class="row">
+                <div class="col-md-3 col-lg-3" *ngFor="let stuff of stuffs; index as i;">
+                    <div class="card order-card">
+                        <img [src]="stuff.image" [alt]="stuff.name">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ stuff.name }}</h5>
+                            <h6 class="card-text">Rp{{ stuff.price }}</h6>
+                        </div>
+                        <button (click)="addOrder(i)" class="btn btn-primary col-md-12 col-lg-12" style="border-radius: 0; padding: 12px 0; letter-spacing: 1px;">Tambah</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="orders.length > 0" class="col-lg-4">
+            <div class="card">
+                <div class="card-header">Pesanan</div>
+                <div class="card-body order-body" *ngFor="let order of orders; index as i;">
+                    <div class="accordion" id="accordion" role="tablist">
+                        <div class="carfd mb-0">
+                            <div class="card-header" id="headingOne" role="tab">
+                                <div class="row">
+                                    <div (click)="removeOrder(i)" class="col-md-1 d-flex align-items-center">
+                                        <i class="cil-trash" style="cursor: pointer;"></i>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-center order-title">
+                                        {{ order.name }}
+                                    </div>
+                                    <div class="col-md-5 d-flex align-items-center">
+                                        <form action="">
+                                            <input (keyup)="reloadOrder()" type="text" name="input-{{ i }}" class="form-control" [(ngModel)]="order.quantity" [value]="order.quantity">
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-end">
+                                        <span>Rp{{ order.price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="row font-weight-bold">
+                        <div class="col-lg-6">
+                            Total Pesanan
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="float-right">
+                                Rp{{ total }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

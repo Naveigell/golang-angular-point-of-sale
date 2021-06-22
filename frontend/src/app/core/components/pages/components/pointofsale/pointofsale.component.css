@@ -1,0 +1,40 @@
+img {
+    max-height: 200px;
+    min-height: 200px;
+    margin: 8px;
+    object-fit: contain;
+}
+
+.order-card {
+    max-height: 400px;
+    min-height: 400px;
+}
+
+.card-body > .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.order-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.order-title:hover {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
+}
+
+.order-body {
+    padding-bottom: 0;
+    padding-top: 7px;
+    max-height: 200px;
+}

@@ -7,6 +7,8 @@ import (
 
 func Run() {
 	router := gin.Default()
+	ServeStatic(router)
+
 	var v1 = router.Group("/api/v1")
 	{
 		v1.GET("/products", product.GetAll)
@@ -17,4 +19,8 @@ func Run() {
 		v1.DELETE("/products/:id", product.Delete)
 	}
 	_ = router.Run()
+}
+
+func ServeStatic(router *gin.Engine) {
+	router.Static("/assets", "backend/assets")
 }

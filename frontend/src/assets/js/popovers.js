@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-toggle="popover"]').forEach(function(element){new coreui.Popover(element);});
