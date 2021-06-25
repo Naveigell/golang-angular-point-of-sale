@@ -7,9 +7,9 @@
                         <img [src]="stuff.image" [alt]="stuff.name">
                         <div class="card-body">
                             <h5 class="card-title">{{ stuff.name }}</h5>
-                            <h6 class="card-text">Rp{{ stuff.price }}</h6>
+                            <h6 class="card-text">{{ currency.indonesian(stuff.purchase_price) }}</h6>
                         </div>
-                        <button (click)="addOrder(i)" class="btn btn-primary col-md-12 col-lg-12" style="border-radius: 0; padding: 12px 0; letter-spacing: 1px;">Tambah</button>
+                        <button (click)="addOrder(i)" class="btn btn-primary col-md-12 col-lg-12" style="border-radius: 0; padding: 12px 0; letter-spacing: 1px;">Add</button>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                                         </form>
                                     </div>
                                     <div class="col-md-2 d-flex align-items-center justify-content-end">
-                                        <span>Rp{{ order.price }}</span>
+                                        <span>{{ currency.indonesian(order.price) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                 <div class="card-header">
                     <div class="row font-weight-bold">
                         <div class="col-lg-6">
-                            Total Pesanan
+                            Total Order
                         </div>
                         <div class="col-lg-6">
                             <div class="float-right">

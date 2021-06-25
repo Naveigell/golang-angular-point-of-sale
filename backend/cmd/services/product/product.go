@@ -6,6 +6,7 @@ import (
 	ProductRepository "backend/cmd/repositories/product"
 	Remover "backend/internal/remover"
 	"backend/internal/validator"
+	"errors"
 	"github.com/google/uuid"
 	"net/http"
 	"os"
@@ -44,7 +45,7 @@ func (p ProductService) Update(id string, product ProductModel.Product) (string,
 		return "Validation failed", messages, http.StatusUnprocessableEntity, nil
 	}
 
-	return "Update product success", map[string][] string{}, http.StatusNoContent, nil
+	return "Update product-list success", map[string][] string{}, http.StatusNoContent, nil
 }
 
 func (p ProductService) Retrieve(id string) (interface{}, int) {
@@ -111,6 +112,7 @@ func (p ProductService) Insert(product ProductModel.Product) (string, map[string
 			var messages, success = validate.Validate(product)
 
 			if !success {
+				var err = errors.New("validation failed")
 				return "Validation failed", messages, http.StatusUnprocessableEntity, err
 			} else {
 				var _, err = ProductRepository.InsertOne(product)

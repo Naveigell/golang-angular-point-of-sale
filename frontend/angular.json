@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/assets/css/app.css",
               "src/assets/css/style.css",
               "src/assets/icons/css/brand.min.css",
               "src/assets/icons/css/flag.min.css",
@@ -34,7 +35,8 @@
                 "src/assets/js/vendors/@coreui/coreui-pro/js/coreui.bundle.min.js",
                 "src/assets/js/vendors/@coreui/icons/js/svgxuse.min.js",
                 "src/assets/js/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js",
-                "src/assets/js/vendors/@coreui/utils/js/coreui-utils.js"
+                "src/assets/js/vendors/@coreui/utils/js/coreui-utils.js",
+                "src/assets/js/multi-select.js"
             ]
           },
           "configurations": {

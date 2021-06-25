@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../state';
+import { OrderState } from './order.state';
 import { OrderModel, OrdersModel } from './order.model';
 import * as OrdersAction from './order.action';
 import { Observable } from 'rxjs';
@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
 export class OrderFacade {
 
     private readonly orders: Observable<OrdersModel>;
+    private readonly STORE_NAME = 'orders';
 
-    constructor(public store: Store<AppState>) {
-        this.orders = this.store.select('orders');
+    constructor(public store: Store<OrderState>) {
+        this.orders = this.store.select(this.STORE_NAME);
     }
 
     getOrders(){

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PointofsaleComponent } from './core/components/pages/components/pointofsale/pointofsale.component';
+import { PointofsaleComponent } from './core/components/pages/pointofsale/pointofsale.component';
 
 const routes: Routes = [
     {

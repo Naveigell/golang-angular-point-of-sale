@@ -1,0 +1,86 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Add Product</strong>
+            &nbsp;
+            <small>Form</small>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Product Images</label>
+                <div class="el-form-item__content">
+                    <div>
+                        <ul class="el-upload-list el-upload-list--picture-card">
+                            <li *ngFor="let image of images; index as i;" tabindex="0" class="el-upload-list__item is-success" style="cursor:pointer;">
+                                <img style="object-fit: cover;" [src]="image.base64" alt="" class="el-upload-list__item-thumbnail">
+                                <a class="el-upload-list__item-name">
+                                    <i class="el-icon-document"></i>huawei.jpg
+                                </a>
+                                <label class="el-upload-list__item-status-label">
+                                    <i class="el-icon-upload-success el-icon-check"></i>
+                                </label>
+                                <i class="el-icon-close"></i>
+                                <i class="el-icon-close-tip">press delete to remove</i>
+                                <span class="el-upload-list__item-actions" (click)="removeImage(i)">
+                                    <span class="el-upload-list__item-delete">
+                                        <i class="cil-x-circle"></i>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                        <div (click)="chooseImage(i)" *ngFor="let image of [].constructor(maxImageLength - images.length); index as i;" class="el-upload el-upload--picture-card">
+                            <i class="cil-plus"></i>
+                            <input (change)="changeImage($event.target)" #imageInput type="file" name="file" accept="image/png,image/jpg,image/jpeg" class="el-upload__input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="product-name">Product Name</label>
+                <input class="form-control" [ngClass]="{'is-invalid': errors.name !== null}" id="product-name" type="text" [(ngModel)]="name" placeholder="Enter your product name">
+                <div class="invalid-feedback" *ngIf="errors.name !== null">{{ errors.name[0] }}</div>
+            </div>
+            <div class="form-group">
+                <label for="sku">
+                    SKU &nbsp; <small>(optional)</small>
+                </label>
+                <input class="form-control" [ngClass]="{'is-invalid': errors.sku !== null}" id="sku" type="text" [(ngModel)]="sku" placeholder="Enter sku">
+                <div class="invalid-feedback" *ngIf="errors.sku !== null">{{ errors.sku[0] }}</div>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input class="form-control" [ngClass]="{'is-invalid': errors.stock !== null}" id="stock" type="text" [(ngModel)]="stock" placeholder="Enter stock product">
+                <div class="invalid-feedback" *ngIf="errors.stock !== null">{{ errors.stock[0] }}</div>
+            </div>
+            <div class="form-group">
+                <label for="minimum-stock">Minimum Stock</label>
+                <input class="form-control" [ngClass]="{'is-invalid': errors.minimum_stock !== null}" id="minimum-stock" type="text" [(ngModel)]="minimumStock" placeholder="Enter minimum stock product">
+                <div class="invalid-feedback" *ngIf="errors.minimum_stock !== null">{{ errors.minimum_stock[0] }}</div>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label> &nbsp;
+                <button (click)="categoryModal.open = true;" class="btn btn-sm btn-success">Add Category</button>
+                <select class="c-multi-select category-selection" [ngClass]="{'is-invalid': errors.category !== null}" id="category" [(ngModel)]="category" tabindex="-1">
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="errors.category !== null">{{ errors.category[0] }}</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="purchase-price">Purchase Price</label>
+                    <input class="form-control" [ngClass]="{'is-invalid': errors.purchase_price !== null}" id="purchase-price" type="text" [(ngModel)]="purchasePrice" placeholder="Enter purchase price">
+                    <div class="invalid-feedback" *ngIf="errors.purchase_price !== null">{{ errors.purchase_price[0] }}</div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="selling-price">Selling Price</label>
+                    <input class="form-control" [ngClass]="{'is-invalid': errors.selling_price !== null}" id="selling-price" type="text" [(ngModel)]="sellingPrice" placeholder="Enter selling price">
+                    <div class="invalid-feedback" *ngIf="errors.selling_price !== null">{{ errors.selling_price[0] }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <app-add-category (categoryAdded)="categories.push($event.category); categoryModal.open = false;" (modalClosed)="categoryModal.open = $event.open" *ngIf="categoryModal.open"></app-add-category>
+            <button (click)="save()" class="btn btn-primary" type="button">Save</button>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderFacade } from '../../../../stores/orders';
+import { OrderFacade } from '../../../stores/orders';
 import { ActionsSubject } from '@ngrx/store';
-import { OrderEffect } from '../../../../stores/orders/order.effect';
-import { PointofsaleService } from '../../../../services/http/pointofsale.service';
+import { OrderEffect } from '../../../stores/orders/order.effect';
+import { PointofsaleService } from '../../../services/http/pointofsale.service';
+import { StuffModel } from '../../../models/stuff';
+import { currency } from '../../../../helpers/currency';
 
 @Component({
     selector: 'app-pointofsale',
@@ -16,10 +18,12 @@ export class PointofsaleComponent implements OnInit {
     public orders = [];
     public total = 0;
 
-    public stuffs: any = []
+    public currency = currency;
+
+    public stuffs: StuffModel[] = [];
 
     constructor(
-        private orderService: OrderFacade,
+        private orderFacade: OrderFacade,
         private actionListener: ActionsSubject,
         private orderEffect: OrderEffect,
         private pointOfSaleService: PointofsaleService
@@ -34,18 +38,15 @@ export class PointofsaleComponent implements OnInit {
     }
 
     private retrieveOrders(){
-        this.pointOfSaleService.getProducts().subscribe((data: any) => {
-            for (const datum of data) {
-                datum.name = datum.title;
-                delete datum.title;
-            }
+        this.pointOfSaleService.getProducts().subscribe((response: any) => {
+            const { data }: { data: StuffModel[] } = response;
 
             this.stuffs = data;
         });
     }
 
     reloadOrder() {
-        this.orderService.reloadOrder();
+        this.orderFacade.reloadOrder();
     }
 
     private calculateTotal(){
@@ -59,8 +60,8 @@ export class PointofsaleComponent implements OnInit {
             return;
         }
 
-        const { id, name, price } = this.stuffs[index];
-        this.orderService.addOrder({ id, name, quantity: 1, price });
+        const { id, name, selling_price: price } = this.stuffs[index];
+        this.orderFacade.addOrder({ id, name, quantity: 1, price });
     }
 
     removeOrder(index: number) {
@@ -68,7 +69,7 @@ export class PointofsaleComponent implements OnInit {
             return;
         }
 
-        this.orderService.removeOrder(index);
+        this.orderFacade.removeOrder(index);
     }
 
     rand(){

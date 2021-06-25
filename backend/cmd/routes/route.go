@@ -7,7 +7,10 @@ import (
 
 func Run() {
 	router := gin.Default()
+
 	ServeStatic(router)
+
+	router.Use(allowCors())
 
 	var v1 = router.Group("/api/v1")
 	{
@@ -23,4 +26,13 @@ func Run() {
 
 func ServeStatic(router *gin.Engine) {
 	router.Static("/assets", "backend/assets")
+}
+
+func allowCors() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		context.Header("Access-Control-Allow-Origin", "*")
+		context.Header("Access-Control-Allow-Credentials", "true")
+		context.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Accept, Origin, Cache-Control, X-Requested-With")
+		context.Header("Access-Control-Allow-Methods", "POST, HEAD, PATCH, OPTIONS, GET, PUT")
+	}
 }

@@ -1,6 +1,7 @@
 package product
 
 import (
+	"backend/cmd/config"
 	ProductModel "backend/cmd/models/product"
 	"backend/internal/database"
 	"context"
@@ -19,6 +20,10 @@ func All() []ProductModel.Product {
 	var products = make([]ProductModel.Product, 0)
 
 	_ = cursor.All(context.Background(), &products)
+
+	for i := 0; i < len(products); i++ {
+		products[i].Image = config.ProductsImageUrl + products[i].Image
+	}
 
 	return products
 }

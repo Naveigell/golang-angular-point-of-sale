@@ -29,6 +29,7 @@ func New() *validation {
 }
 
 func (v validation) Validate(obj interface{}) (map[string][] string, bool) {
+	// error message
 	var m = make(map[string][] string, 0)
 
 	var err = v.validator.Struct(obj)
@@ -38,17 +39,24 @@ func (v validation) Validate(obj interface{}) (map[string][] string, bool) {
 				m[err.Field()] = make([]string, 0)
 			}
 
+			var name, _ = reflect.TypeOf(obj).FieldByName(err.StructField())
+			var field = err.Field()
+
+			if name.Tag.Get("name") != "" {
+				field = name.Tag.Get("name")
+			}
+
 			switch err.Tag() {
 			case "min":
-				m[err.Field()] = append(m[err.Field()], err.Field() + " minimum is " + err.Param())
+				m[err.Field()] = append(m[err.Field()], field + " minimum is " + err.Param())
 			case "required":
-				m[err.Field()] = append(m[err.Field()], err.Field() + " cannot be empty")
+				m[err.Field()] = append(m[err.Field()], field + " cannot be empty")
 			case "eq":
-				m[err.Field()] = append(m[err.Field()], err.Field() + " must equal with " + err.Param())
+				m[err.Field()] = append(m[err.Field()], field + " must equal with " + err.Param())
 			case "gt":
-				m[err.Field()] = append(m[err.Field()], err.Field() + " must greater than " + err.Param())
+				m[err.Field()] = append(m[err.Field()], field + " must greater than " + err.Param())
 			case "gte":
-				m[err.Field()] = append(m[err.Field()], err.Field() + " must greater than equal " + err.Param())
+				m[err.Field()] = append(m[err.Field()], field + " must greater than equal " + err.Param())
 			}
 		}
 	}
