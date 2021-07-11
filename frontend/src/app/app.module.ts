@@ -23,6 +23,12 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './core/routes/router';
 import { ProductAddComponent } from './core/components/pages/catalog/products/product-add/product-add.component';
 import { AddCategoryComponent } from './core/components/pages/catalog/products/product-add/modal/add-category/add-category.component';
+import { DeleteProductComponent } from './core/components/pages/catalog/products/product-list/modal/delete-product/delete-product.component';
+import { ProductEditComponent } from './core/components/pages/catalog/products/product-edit/product-edit.component';
+import { ShowProductComponent } from './core/components/pages/catalog/products/product-list/modal/show-product/show-product.component';
+import { NotFoundComponent } from './core/components/errors/not-found/not-found.component';
+import { errorReducer } from './core/stores/errors';
+import { ErrorEffect } from './core/stores/errors/error.effect';
 
 @NgModule({
     declarations: [
@@ -33,17 +39,22 @@ import { AddCategoryComponent } from './core/components/pages/catalog/products/p
         ProductListComponent,
         ProductAddComponent,
         AddCategoryComponent,
+        DeleteProductComponent,
+        ProductEditComponent,
+        ShowProductComponent,
+        NotFoundComponent,
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
-        EffectsModule.forRoot([OrderEffect, AlertEffect]),
+        EffectsModule.forRoot([OrderEffect, AlertEffect, ErrorEffect]),
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({
             orders: orderReducer,
-            alerts: alertReducer
+            alerts: alertReducer,
+            errors: errorReducer
         }),
     ],
     providers: [HttpClientModule],

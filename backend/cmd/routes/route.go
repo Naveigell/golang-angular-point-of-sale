@@ -18,8 +18,10 @@ func Run() {
 		v1.POST("/products", product.Insert)
 		v1.GET("/products/:id", product.Retrieve)
 		v1.PUT("/products/:id", product.Update)
-		v1.PATCH("/products/:id/image", product.UpdateImage)
 		v1.DELETE("/products/:id", product.Delete)
+		v1.PATCH("/products/:id/image", product.UpdateImage)
+		v1.OPTIONS("/products/:id", product.Options)
+		v1.OPTIONS("/products/:id/image", product.Options)
 	}
 	_ = router.Run()
 }
@@ -33,6 +35,6 @@ func allowCors() gin.HandlerFunc {
 		context.Header("Access-Control-Allow-Origin", "*")
 		context.Header("Access-Control-Allow-Credentials", "true")
 		context.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Accept, Origin, Cache-Control, X-Requested-With")
-		context.Header("Access-Control-Allow-Methods", "POST, HEAD, PATCH, OPTIONS, GET, PUT")
+		context.Header("Access-Control-Allow-Methods", "POST, DELETE, HEAD, PATCH, OPTIONS, GET, PUT")
 	}
 }

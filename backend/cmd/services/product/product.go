@@ -45,7 +45,7 @@ func (p ProductService) Update(id string, product ProductModel.Product) (string,
 		return "Validation failed", messages, http.StatusUnprocessableEntity, nil
 	}
 
-	return "Update product-list success", map[string][] string{}, http.StatusNoContent, nil
+	return "Update product success", map[string][] string{}, http.StatusNoContent, nil
 }
 
 func (p ProductService) Retrieve(id string) (interface{}, int) {

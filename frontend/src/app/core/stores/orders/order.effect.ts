@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ADD_ORDER, REMOVE_ORDER } from './order.action';
+import { ADD_ORDER, CLEAR_ORDER, REMOVE_ORDER } from './order.action';
 import { OrderFacade } from './order.facade';
 import { concatMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class OrderEffect {
-    addOrder$ = createEffect(() => {
+    watchOrders$ = createEffect(() => {
             return this.action.pipe(
-                ofType(ADD_ORDER, REMOVE_ORDER),
+                ofType(ADD_ORDER, REMOVE_ORDER, CLEAR_ORDER),
                 concatMap(() => {
                     return this.orderService.getOrders().pipe(
                         map((orders) => {

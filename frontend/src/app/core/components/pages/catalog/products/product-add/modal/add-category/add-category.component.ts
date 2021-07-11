@@ -15,5 +15,4 @@ export class AddCategoryComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {}
-
 }

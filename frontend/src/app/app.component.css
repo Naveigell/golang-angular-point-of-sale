@@ -8,3 +8,7 @@
     color: white;
     cursor: pointer;
 }
+
+[hidden] {
+    display: none !important;
+}

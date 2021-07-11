@@ -3,14 +3,16 @@ import { file } from '../../../../../../helpers/file';
 import { FileModel } from '../../../../../models/file';
 import { ProductsService } from '../../../../../services/http/products.service';
 import { Router } from '@angular/router';
-import { AlertFacade, PRODUCT_ADDED } from '../../../../../stores/alerts';
+import { AlertFacade, PRODUCT_ADD } from '../../../../../stores/alerts';
+import { append } from '../../../../../../helpers/form_data';
+import { parseErrors } from '../../../../../../helpers/parse';
 
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
   styleUrls: ['./product-add.component.css']
 })
-export class ProductAddComponent implements OnInit, AfterViewInit {
+export class ProductAddComponent implements OnInit {
 
     @ViewChildren('imageInput')
     public imageInputs: QueryList<ElementRef>;
@@ -49,16 +51,12 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {}
 
-    ngAfterViewInit() {
-        console.log(this.imageInputs)
-    }
-
-    changeImage(target: any){
-        file.toBase64(target.files[0]).then((response: string) => {
+    imageChanged(target: any){
+        file.fromFileToBase64(target.files[0]).then((response: string) => {
             const file: FileModel = {
                 base64: response,
                 blob: null,
-                original: target.files[0]
+                file: target.files[0]
             }
 
             this.images.push(file);
@@ -89,14 +87,8 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
             return;
         }
 
-        const append = (form: FormData, key: string, value: any) => {
-            if (value !== undefined) {
-                form.append(key, value.toString());
-            }
-        };
-
         const form = new FormData();
-        form.append('image', this.images[0].original);
+        form.append('image', this.images[0].file);
         append(form, 'name', this.name);
         append(form, 'sku', this.sku);
         append(form, 'category', this.category);
@@ -109,21 +101,17 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
             (response) => {
                 this.alertFacade.shareAlert({
                     message: 'Product added successfully',
-                    name: PRODUCT_ADDED,
+                    name: PRODUCT_ADD,
                     duration: -1,
                     style: 'alert alert-success'
                 });
                 this.router.navigate(['/catalog/products']).then(r => undefined);
             },
             (response) => {
-                console.log(response.error.status)
                 const errors: object = response.error.error;
-                for (const error in errors) {
-                    if (errors.hasOwnProperty(error)) {
-                        if (this.errors.hasOwnProperty(error)) {
-                            this.errors[error] = errors[error];
-                        }
-                    }
+                const status = response.error.status;
+                if (status === 422) {
+                    parseErrors(errors, this.errors);
                 }
             }
         );

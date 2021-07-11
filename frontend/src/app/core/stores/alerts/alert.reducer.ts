@@ -16,5 +16,5 @@ export function alertReducer(state: AlertModel = initialState, action: Action) {
             return { ...action.payload };
     }
 
-    return state;
+    return { ...state };
 }

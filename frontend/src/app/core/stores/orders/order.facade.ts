@@ -17,6 +17,10 @@ export class OrderFacade {
         this.orders = this.store.select(this.STORE_NAME);
     }
 
+    clearOrders(){
+        this.store.dispatch(new OrdersAction.ClearOrder());
+    }
+
     getOrders(){
         return this.orders;
     }

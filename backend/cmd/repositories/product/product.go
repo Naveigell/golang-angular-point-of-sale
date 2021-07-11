@@ -133,5 +133,7 @@ func Retrieve(id string) interface{} {
 		}
 	}
 
+	product.Image = config.ProductsImageUrl + product.Image
+
 	return product
 }

@@ -10,7 +10,7 @@ export class AlertEffect {
             return this.action.pipe(
                 ofType(SHOW_ALERT),
                 concatMap(() => {
-                    return this.alertService.getAlert().pipe(
+                    return this.alertFacade.getAlert().pipe(
                         map((alert) => {
                             return alert;
                         })
@@ -21,5 +21,5 @@ export class AlertEffect {
         { dispatch: false }
     )
 
-    constructor(private action: Actions, private alertService: AlertFacade) {}
+    constructor(private action: Actions, private alertFacade: AlertFacade) {}
 }

@@ -1,0 +1,21 @@
+<div class="modal fade show" id="dangerModal" tabindex="-1" aria-labelledby="myModalLabel" style="background: #121212BB; display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete product</h4>
+                <button (click)="modalClosed.emit({ open: false })" class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <h4>Delete <b class="text-danger text"> {{ product.name }} </b> ? </h4>
+                <h6 class="text-danger text">This action cannot be undone</h6>
+            </div>
+            <div class="modal-footer">
+                <button (click)="modalClosed.emit({ open: false })" class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                <button (click)="deleteProduct()" [ngClass]="{'c-loading-button c-loading-button-loading': loading}" class="btn btn-danger">
+                    <span *ngIf="loading" class="c-loading-button-spinner spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

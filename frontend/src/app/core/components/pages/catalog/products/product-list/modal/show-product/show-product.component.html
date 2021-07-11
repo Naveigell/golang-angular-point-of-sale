@@ -1,0 +1,42 @@
+<div class="modal fade show" id="dangerModal" tabindex="-1" aria-labelledby="myModalLabel" style="background: #121212BB; display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-warning" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Show product</h4>
+                <button (click)="modalClosed.emit({ open: false })" class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Product</h6>
+                        <form id="signupForm" novalidate="novalidate">
+                            <div class="form-group">
+                                <label class="col-form-label" for="name">Product name</label>
+                                <input disabled class="form-control" id="name" type="text" name="name" placeholder="Product name" [(ngModel)]="product.name">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="sku">SKU</label>
+                                <input disabled class="form-control" id="sku" type="text" name="sku" placeholder="Sku" [(ngModel)]="product.sku">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="stock">Stock</label>
+                                <input disabled class="form-control" id="stock" type="text" name="stock" placeholder="Stock" [(ngModel)]="product.stock">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="purchase_price">Purchase Price</label>
+                                <input disabled class="form-control" id="purchase_price" type="text" name="purchase_price" placeholder="Purchase price" [value]="currency.indonesian(product.purchase_price)">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="selling_price">Selling Price</label>
+                                <input disabled class="form-control" id="selling_price" type="text" name="selling_price" placeholder="Selling price" [value]="currency.indonesian(product.selling_price)">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="modalClosed.emit({ open: false })" class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

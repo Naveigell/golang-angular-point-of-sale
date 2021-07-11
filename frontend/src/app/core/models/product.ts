@@ -1,4 +1,4 @@
-export interface StuffModel {
+export interface ProductModel {
     barcode: string;
     category: string;
     id: string;
@@ -6,8 +6,8 @@ export interface StuffModel {
     minimum_stock: number;
     name: string;
     outlet: string;
-    purchase_price: string;
-    selling_price: string;
+    purchase_price: number;
+    selling_price: number;
     sku: string;
     stock: number;
 }

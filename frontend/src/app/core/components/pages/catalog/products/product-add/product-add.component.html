@@ -30,7 +30,7 @@
                         </ul>
                         <div (click)="chooseImage(i)" *ngFor="let image of [].constructor(maxImageLength - images.length); index as i;" class="el-upload el-upload--picture-card">
                             <i class="cil-plus"></i>
-                            <input (change)="changeImage($event.target)" #imageInput type="file" name="file" accept="image/png,image/jpg,image/jpeg" class="el-upload__input">
+                            <input (change)="imageChanged($event.target)" #imageInput type="file" name="file" accept="image/png,image/jpg,image/jpeg" class="el-upload__input">
                         </div>
                     </div>
                 </div>

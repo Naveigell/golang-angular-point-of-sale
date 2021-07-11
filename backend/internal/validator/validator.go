@@ -1,6 +1,7 @@
 package validator
 
 import (
+	"fmt"
 	"gopkg.in/go-playground/validator.v9"
 	"reflect"
 	"strings"
@@ -46,17 +47,27 @@ func (v validation) Validate(obj interface{}) (map[string][] string, bool) {
 				field = name.Tag.Get("name")
 			}
 
+			fmt.Println(err.Value())
+
 			switch err.Tag() {
 			case "min":
 				m[err.Field()] = append(m[err.Field()], field + " minimum is " + err.Param())
-			case "required":
-				m[err.Field()] = append(m[err.Field()], field + " cannot be empty")
+				break
 			case "eq":
 				m[err.Field()] = append(m[err.Field()], field + " must equal with " + err.Param())
+				break
 			case "gt":
 				m[err.Field()] = append(m[err.Field()], field + " must greater than " + err.Param())
+				break
 			case "gte":
 				m[err.Field()] = append(m[err.Field()], field + " must greater than equal " + err.Param())
+				break
+			case "required":
+				m[err.Field()] = append(m[err.Field()], field + " cannot be empty")
+				break
+			case "max":
+				m[err.Field()] = append(m[err.Field()], field + " maximum is " + err.Param())
+				break
 			}
 		}
 	}

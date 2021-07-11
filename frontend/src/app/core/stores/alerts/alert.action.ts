@@ -4,7 +4,9 @@ import { AlertModel } from './alert.model';
 
 export const SHOW_ALERT             = '[ALERTS] Alerts Show';
 
-export const PRODUCT_ADDED          = '[PRODUCTS] Product Added';
+export const PRODUCT_ADD          = '[PRODUCTS] Product Add';
+export const PRODUCT_DELETE       = '[PRODUCTS] Product Delete';
+export const PRODUCT_UPDATE       = '[PRODUCTS] Product Update';
 
 @Injectable()
 export class ShowAlert implements Action{

@@ -140,3 +140,9 @@ func Insert(context *gin.Context) {
 		})
 	}
 }
+
+func Options(context *gin.Context) {
+	context.Header("Access-Control-Allow-Methods", "PUT, DELETE, PATCH")
+	context.Header("Access-Control-Allow-Headers", "*")
+	context.Next()
+}

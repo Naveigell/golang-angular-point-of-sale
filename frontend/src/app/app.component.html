@@ -1,15 +1,15 @@
 <div class="c-app">
-    <div app-sidebar class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar"></div>
-    <div class="c-wrapper">
-        <div app-header class="c-header c-header-light c-header-fixed" id="header"></div>
+    <div [hidden]="globalError" app-sidebar class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar"></div>
+    <div [ngClass]="{'c-wrapper': !globalError, 'container': globalError}">
+        <div *ngIf="!globalError" app-header class="c-header c-header-light c-header-fixed" id="header"></div>
         <div class="c-body" style="margin-bottom: 60px;">
             <main class="c-main">
                 <div class="container-fluid fade-in" style="position: relative;">
                     <router-outlet></router-outlet>
                 </div>
             </main>
-            <div *ngIf="totalOrders > 0" class="floating-cart bg-success">
-                Add to cart
+            <div (click)="payment()" *ngIf="totalOrders > 0" class="floating-cart bg-dark">
+                Payment
             </div>
         </div>
     </div>

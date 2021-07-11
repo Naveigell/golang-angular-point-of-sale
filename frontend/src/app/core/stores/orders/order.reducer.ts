@@ -15,6 +15,9 @@ export function orderReducer(state: OrdersModel = initialState, action: Action){
         case OrderActions.REMOVE_ORDER:
             state.orders.splice(action.payload, 1);
             break;
+        case OrderActions.CLEAR_ORDER:
+            state.orders = [];
+            break;
     }
 
     return { ...grouping(state) };

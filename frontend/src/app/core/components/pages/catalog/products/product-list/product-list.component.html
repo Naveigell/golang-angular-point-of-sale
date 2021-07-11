@@ -4,7 +4,7 @@
         <div class="card-body">
             <div *ngIf="showAlert" [class]="alertOption.style" class="alert-dismissible fade show" role="alert">
                 {{ alertOption.message }}
-                <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <button class="close" type="button" (click)="showAlert = false;">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let stuff of stuffs; index as i;">
+                <tr *ngFor="let stuff of products; index as i;">
                     <td>
                         <label class="el-checkbox">
                            <span class="el-checkbox__input">
@@ -58,9 +58,9 @@
                     <td>{{ currency.indonesian(stuff.purchase_price) }}</td>
                     <td>{{ currency.indonesian(stuff.selling_price) }}</td>
                     <td>
-                        <button class="btn btn-sm btn-warning active">Show</button>
-                        <button class="btn btn-sm btn-info active" style="margin-left: 5px;">Update</button>
-                        <button class="btn btn-sm btn-danger active" style="margin-left: 5px;">Delete</button>
+                        <button (click)="showComponent.index = i;" class="btn btn-sm btn-warning active">Show</button>
+                        <button (click)="moveTo({ id: stuff.id })" class="btn btn-sm btn-info active" style="margin-left: 5px;">Update</button>
+                        <button (click)="deleteComponent.index = i;" class="btn btn-sm btn-danger active" style="margin-left: 5px;">Delete</button>
                     </td>
                 </tr>
                 </tbody>
@@ -68,3 +68,6 @@
         </div>
     </div>
 </div>
+
+<app-show-product [product]="products[showComponent.index]" (modalClosed)="showComponent.index = -1;" *ngIf="showComponent.index >= 0"></app-show-product>
+<app-delete-product [product]="products[deleteComponent.index]" (productDeleted)="handleProductDeleted($event)" (modalClosed)="deleteComponent.index = -1;" *ngIf="deleteComponent.index >= 0"></app-delete-product>

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrderFacade } from '../../../stores/orders';
 import { ActionsSubject } from '@ngrx/store';
 import { OrderEffect } from '../../../stores/orders/order.effect';
 import { PointofsaleService } from '../../../services/http/pointofsale.service';
-import { StuffModel } from '../../../models/stuff';
+import { ProductModel } from '../../../models/product';
 import { currency } from '../../../../helpers/currency';
 
 @Component({
@@ -12,7 +12,7 @@ import { currency } from '../../../../helpers/currency';
     styleUrls: ['./pointofsale.component.css']
 })
 
-export class PointofsaleComponent implements OnInit {
+export class PointofsaleComponent implements OnInit, OnDestroy {
 
     public count = 0;
     public orders = [];
@@ -20,7 +20,7 @@ export class PointofsaleComponent implements OnInit {
 
     public currency = currency;
 
-    public stuffs: StuffModel[] = [];
+    public stuffs: ProductModel[] = [];
 
     constructor(
         private orderFacade: OrderFacade,
@@ -31,7 +31,7 @@ export class PointofsaleComponent implements OnInit {
 
     ngOnInit() {
         this.retrieveOrders();
-        this.orderEffect.addOrder$.subscribe((data) => {
+        this.orderEffect.watchOrders$.subscribe((data) => {
             this.orders = data.orders;
             this.calculateTotal();
         });
@@ -39,7 +39,7 @@ export class PointofsaleComponent implements OnInit {
 
     private retrieveOrders(){
         this.pointOfSaleService.getProducts().subscribe((response: any) => {
-            const { data }: { data: StuffModel[] } = response;
+            const { data }: { data: ProductModel[] } = response;
 
             this.stuffs = data;
         });
@@ -72,10 +72,7 @@ export class PointofsaleComponent implements OnInit {
         this.orderFacade.removeOrder(index);
     }
 
-    rand(){
-        const red = Math.round(Math.random() * 254);
-        const green = Math.round(Math.random() * 254);
-        const blue = Math.round(Math.random() * 254);
-        return `rgb(${red},${green},${blue})`;
+    ngOnDestroy() {
+        this.orderFacade.clearOrders();
     }
 }
